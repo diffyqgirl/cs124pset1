@@ -7,6 +7,7 @@ void mult_2x2 (int* a, int* b, int* result);
 void square_2x2(int* a, int* result);
 void sqpows_2x2(int* a, int k, int* result);
 void print_2x2(int* a);
+#define MOD 65536; //2^16
 int main(int argc, char** argv)
 {
 	printf ("%i", fib_m(atoi(argv[1])));
@@ -64,10 +65,10 @@ void square_2x2(int* a, int* result)
 void mult_2x2 (int* a, int* b, int* result)
 {	
 	int ans[2][2];
-	ans[0][0] = (*a) * (*b) + *(a+1) * *(b+2);
-	ans[0][1] = (*a) * *(b+1) + *(a+1) * *(b+3);
-	ans[1][0] = *(a+2) * (*b) + *(a+3) * *(b+2);
-	ans[1][1] = *(a+2) * *(b+1) + *(a+3) * *(b+3);
+	ans[0][0] = ((*a) * (*b) + *(a+1) * *(b+2))%MOD;
+	ans[0][1] = ((*a) * *(b+1)+ *(a+1) * *(b+3))%MOD;
+	ans[1][0] = (*(a+2) * (*b)  + *(a+3) * *(b+2))%MOD;
+	ans[1][1] = (*(a+2) * *(b+1) + *(a+3) * *(b+3))%MOD;
 	memcpy(result, &ans, sizeof(ans));
 }
 
