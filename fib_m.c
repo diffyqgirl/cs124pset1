@@ -24,29 +24,43 @@ int fib_m(int n)
 		count++;
 	};
 	printf("count is %i\n", count);
-	int sqpows[count+1][2][2];
+	int sqpows[count][2][2];
 	sqpows_2x2((int*) &f, count, (int*) &sqpows);
 	printf("\ncounts in fib_m\n");
-	for (int i = 1; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		print_2x2((int*)sqpows[i]);
 	}
 
-	return sqpows[count][0][1];//should work if n is a power of 2
+	int answer[2][2] = {{1, 0}, {0, 1}};
+	while(n>0)
+	{
+		//k = 2^count
+		
+		if (n-k>=0)
+		{
+			mult_2x2((int*) &(sqpows[count-1]), (int*) (&answer), (int*) (&answer));
+			n -= k;
+		}
+		k = k/2;
+		count--;
+	}
+
+	return answer[0][1];//should work if n is a power of 2
 }
 
 //k is the number of digits in the binary representation of n
 void sqpows_2x2 (int* a, int count, int* result)
 {
-	int sqpows[count+1][2][2]; //sqpows[k] is the matrix a^(2^k)
-	memcpy(&(sqpows[1]), a, sizeof(int[2][2]));
+	int sqpows[count][2][2]; //sqpows[k] is the matrix a^(2^k)
+	memcpy(&(sqpows[0]), a, sizeof(int[2][2]));
 	square_2x2(a, result);
-	for (int i = 1; i < count; i++)
+	for (int i = 0; i < count-1; i++)
 	{
 		square_2x2((int*) &(sqpows[i]), (int*)&(sqpows[i+1]));
 	}
 	printf("\ncounts\n");
-	for (int i = 1; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		print_2x2((int*)sqpows[i]);
 	}
