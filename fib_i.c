@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MOD 65536 //2^16
 //defines the 0th fibonacci number as 0 and the 1st fibonacci number as 1
 int fib_i(int n);
 int main(int argc, char** argv)
@@ -18,7 +19,7 @@ int fib_i(int n)
 	int temp = -1;
 	for (int i = 1; i < n; i ++)
 	{
-		temp = f0 + f1;
+		temp = (f0 + f1)%MOD;
 		f0 = f1;
 		f1 = temp;
 	}
